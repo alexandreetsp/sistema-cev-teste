@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('vagas', function (Blueprint $table) {
+            $table->id();
+            $table->string('titulo');
+            $table->text('descricao')->nullable();
+            $table->enum('tipo_contrato', ['CLT', 'Pessoa Jurídica', 'Freelancer']);
+            $table->boolean('pausada')->default(false);
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('vagas');
+    }
+};
