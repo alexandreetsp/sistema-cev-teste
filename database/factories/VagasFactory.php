@@ -20,7 +20,6 @@ class VagasFactory extends Factory
         return [
             'titulo' => $this->faker->jobTitle,
             'descricao' => $this->faker->paragraph,
-            'tipo_contrato' => $this->faker->randomElement(['CLT', 'Pessoa Jurídica', 'Freelancer']),
             'pausada' => $this->faker->boolean(10),
         ];
     }

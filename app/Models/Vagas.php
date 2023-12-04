@@ -9,9 +9,16 @@ class Vagas extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['titulo', 'descricao', 'tipo_contrato_id'];
+
     public function vagas()
     {
         return $this->belongsToMany(Vaga::class, 'vagas_candidatos', 'candidato_id', 'vaga_id');
+    }
+
+     public function tipoContrato()
+    {
+        return $this->belongsTo(TipoContrato::class, 'tipo_contrato_id');
     }
 
 }

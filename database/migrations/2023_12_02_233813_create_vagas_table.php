@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descricao')->nullable();
-            $table->enum('tipo_contrato', ['CLT', 'Pessoa Jurídica', 'Freelancer']);
+            $table->unsignedBigInteger('tipo_contrato_id')->nullable();
+            $table->foreign('tipo_contrato_id')->references('id')->on('tipo_contratos');
             $table->boolean('pausada')->default(false);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use App\Models\VagasCandidatos;
 use App\Models\Vagas;
 use App\Models\Candidatos;
+use App\Models\TipoContrato;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\VagasCandidatos>
@@ -24,12 +25,13 @@ class VagasCandidatosFactory extends Factory
 
     public function definition(): array
     {
-    
-           // Create a new Vaga and Candidato
-        $vaga = Vagas::factory()->create();
-        $candidato = Candidatos::factory()->create();
 
-        // Associate Vaga and Candidato with the VagaCandidato
+        $tipoContrato = TipoContrato::inRandomOrder()->first();
+
+        // Create a new Vaga and Candidato associated with the randomly selected TipoContrato
+        $vaga = Vagas::factory()->create(['tipo_contrato_id' => $tipoContrato->id]);
+        $candidato = Candidatos::factory()->create(['tipo_contrato_id' => $tipoContrato->id]);
+    
         return [
             'vaga_id' => $vaga->id,
             'candidato_id' => $candidato->id,
