@@ -10,13 +10,15 @@ class Candidatos extends Model
     use HasFactory;
 
     
-    public function candidatos()
-    {
-        return $this->belongsToMany(Candidato::class, 'vagas_candidatos', 'vaga_id', 'candidato_id');
-    }
+    // User.php
+public function vagas()
+{
+    return $this->belongsToMany(Vagas::class);
+}
 
-    public function tipoContrato()
-    {
-        return $this->belongsTo(TipoContrato::class, 'tipo_contrato_id');
-    }
+// Vaga.php
+public function users()
+{
+    return $this->belongsToMany(User::class);
+}
 }

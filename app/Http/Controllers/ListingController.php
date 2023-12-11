@@ -7,25 +7,25 @@ use App\Models\Vagas;
 use App\Models\TipoContrato;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\UserVaga;
 
 
 class ListingController extends Controller
 {
     public function index(Request $request){
         $query = Vagas::where('is_active', true)
-        ->latest();
-
-       $tiposContratos = TipoContrato::orderBy('name')->get();
-
-       if($request->has('tipo')){
-            $tipo = $request->get('tipo');
-
-            $query = Vagas::where('tipo_contrato_id', $tipo);
-       }
-
-       $vagas = $query->get();
-
-        return view('listings.index', compact('vagas', 'tiposContratos'));
+                ->latest();
+        
+            $tiposContratos = TipoContrato::orderBy('name')->get();
+        
+            if($request->has('tipo')){
+                $tipo = $request->get('tipo');
+        
+                $query = Vagas::where('tipo_contrato_id', $tipo);
+            }
+        
+            $vagas = $query->paginate(15);
+            return view('listings.index', compact('vagas', 'tiposContratos'));
     }
 
     public function criar(){
@@ -62,6 +62,42 @@ class ListingController extends Controller
     public function editar($id) {
             $post = Vagas::findOrFail($id);
             return view('listings.editar', compact('post'));
+    }
+
+    public function pausar($id)
+    {
+    // Find the Vaga by ID
+    $vaga = Vagas::findOrFail($id);
+
+    if (!$vaga) {
+        abort(404, 'Vaga not found');
+    }
+
+    // Update the 'pausada' column to a new value
+    $vaga->update(['pausada' => 1]); // Replace 'true' with the desired value
+
+     // Set a success flash message
+     session()->flash('success', 'Vaga status atualizada com sucesso');
+
+     return redirect()->back();
+    }
+
+    public function despausar($id)
+    {
+    // Find the Vaga by ID
+    $vaga = Vagas::find($id);
+
+    if (!$vaga) {
+        abort(404, 'Vaga not found');
+    }
+
+    // Update the 'pausada' column to a new value
+    $vaga->update(['pausada' => 0]); // Replace 'true' with the desired value
+
+     // Set a success flash message
+     session()->flash('success', 'Vaga status atualizada com sucesso');
+
+     return redirect()->back();
     }
 
 

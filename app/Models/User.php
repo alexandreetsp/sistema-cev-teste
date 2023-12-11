@@ -21,7 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type'
     ];
+
+     public function vagas()
+    {
+        return $this->belongsToMany(Vagas::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

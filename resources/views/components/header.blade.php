@@ -4,6 +4,9 @@
     </div>
     <nav class="grid grid-cols-2">
         <a href="{{ route('login') }}">Login</a>
-        <a href="{{ route('listings.criar') }}">Criar Vaga</a>
+        <a href="{{ route('register') }}">Registrar</a>
+    
+
+        <a href="{{ route('logout') }}">Log out</a>
     </nav>
 </header>
