@@ -9,6 +9,8 @@ Ao fazer o clone do projeto rode:
 
 `npm install`
 
+e inicie o XAMPP com o Apache e MySql
+
 Pronto:
 
 Antes de rodar execute o migrate e dbseed:
